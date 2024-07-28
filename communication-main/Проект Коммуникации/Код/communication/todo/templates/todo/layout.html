@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="{% static 'todo/css/style.css' %}">
+    <title>Задачи</title>
+</head>
+
+<body>
+    {% if user.is_superuser or user.role|lower == "главный админ" %}
+        <h2 class="main-content__title">Задачи</h2>
+        <a href = "{%url 'home'%}"><button>Назад</button></a>
+        {% if success_message %}
+            <p>{{ success_message }}</p>
+        {% endif %}
+
+        <form class="main-content__form" method="post">
+            {% csrf_token %}
+            <div class="form__section">
+
+                <label class="section__title" for="group">Выберите группу:</label>
+                <select name="group" id="group">
+                    <option value="" selected disabled>Выберите группу</option>
+                    {% for group in groups %}
+                    <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <label class="section__title" for="user">Выберите пользователя:</label>
+                <select name="user" id="user">
+                    <option value="" selected disabled>Весь отдел</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.get_full_name }}</option>
+                    {% endfor %}
+                </select>
+            <div class="form__section">
+                <label class="section__title" for="task">Задача:</label>
+                <input type="text" id="task" name="task" />
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="description">Описание:</label>
+                <textarea id="description" name="description"></textarea>
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="priority">Приоритет:</label>
+                <select id="priority" name="priority">
+                    <option value="high">Высокий</option>
+                    <option value="medium">Средний</option>
+                    <option value="low">Низкий</option>
+                </select>
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="date">Дата:</label>
+                <input type="date" id="date" name="date" />
+            </div>
+            <button class="form__button" type="submit">Сохранить</button>
+        </form>
+        {% for task in tasks %}
+        <div class="ui segment">
+            <p class="ui big header">{{ task.employee.get_full_name }}: {{ task.task }} - {{ task.description }} ({{ task.priority }}) на {{ task.date }}</p>
+        
+            {% if task.is_complete == False %}
+            <span class="ui gray label">Не завершено</span>
+            <a class="ui primary basic button" href="{% url 'update' task_id=task.id %}">Закрыть</a>
+            {% else %}
+            <span class="ui green label">Завершено</span>
+            <a class="ui blue button" href="{% url 'update' task_id=task.id %}">Открыть</a>
+            {% endif %}
+            <a class="ui negative basic button" href="{% url 'delete' task_id=task.id %}">Удалить</a>
+            <a class="ui green button" href="{% url 'correct' pk=task.id %}">Изменить</a>
+            </div>
+            {% endfor %}
+        </div>
+
+    {% else %}  
+            {% for task in tasks %}
+            {% if request.user.id == task.employee.id %}
+            <div class="ui segment">
+                <p class="ui big header">{{ task.employee.get_full_name }}: {{ task.task }} - {{ task.description }} ({{ task.priority }}) на {{ task.date }}</p>
+            
+                {% if task.is_complete == False %}
+                <span class="ui gray label">Не завершено</span>
+                <a class="ui primary basic button" href="{% url 'update' task_id=task.id %}">Закрыть</a>
+                {% else %}
+                <span class="ui green label">Завершено</span>
+                <a class="ui blue button" href="{% url 'update' task_id=task.id %}">Открыть</a>
+                {% endif %}
+                </div>
+            </div>
+            {%endif%}
+            {% endfor %}
+    
+    {% endif %}
+
+</body>
+</html>

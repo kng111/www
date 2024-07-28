@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Montserrat", "Arial", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: #26252a;
+    margin: 0;
+    padding: 0;
+    background-image: url(../../../img/login_page/Login_page_Background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    object-fit: cover;
+    height: auto;
+}
+
+a {
+    color: #26252a;
+    text-decoration: none;
+}

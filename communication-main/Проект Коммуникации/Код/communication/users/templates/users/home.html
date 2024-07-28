@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="../../static/css/main_page/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tenor+Sans&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <section class="box-2">
+        <main class="main-to-do-box">
+            <div class="to-do-box">
+                <li class="function-list__item">
+                    <div class="function-card">
+                        <img src="../../static/img/main_page/communication.png" alt="Коммуникация"
+                            class="function-card__image">
+                        <div class="function-card__text-wrapper">
+                            <h2 class="function-card__title">Задачи</h2>
+                            <span class="function-card__description">
+                                Посмотрите выданные задачи и организуйте свою работу
+                            </span>
+                        </div>
+                        <div class="function-card__link-wrapper">
+                            <a class="function-card__link" href = "{%url 'send_tasks'%}">Перейти</a>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </main>
+    </section>
+</body>
+
+{% endblock %}

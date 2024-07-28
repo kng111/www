@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница входа</title>
+    <link rel="stylesheet" href="../../static/css/login_page/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tenor+Sans&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-content">
+        <div class="container">
+            <div class="login-card">
+                <div class="login-card__content-top">
+                    <h1 class="login-card__title">Войти</h1>
+                    <form class="login-card__form" method="post">
+                        {% csrf_token %}
+                        <div class="login-card__form-section">
+                            <span class="login-card__section-name">Логин</span>
+                            <input class="login-card__section-input" type="text"
+                                placeholder="Введите логин учетной записи" name="username" required>
+                        </div>
+                        <div class="login-card__form-section">
+                            <label for="password" class="custom-input__name">Пароль</label>
+                            <div class="custom-input">
+                                <input class="custom-input__field" type="password" name="password" id="password"
+                                    placeholder="Введите пароль учетной записи" required>
+                                <button class="custom-input__icon" type="button" onclick="togglePasswordVisibility()">
+                                    <img src="../../static/img/login_page/eye.png" alt="глаз">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="login-card__button-wrapper">
+                            <button class="login-card__submit" type="submit">
+                                Войти
+                                <svg width="55" height="55" viewBox="0 0 55 55" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="27.5" cy="27.5" r="27.5" fill="white" />
+                                    <svg x="9.5" y="10.5" width="36" height="34" viewBox="0 0 36 34" fill="none">
+                                        <path
+                                            d="M13.9091 21.5V32H34V2H13.9091V12.5M27.8182 17H0M27.8182 17L20.0909 9.5M27.8182 17L20.0909 24.5"
+                                            stroke="#26252A" stroke-width="3" />
+                                    </svg>
+                                </svg>
+                            </button>
+                            <button class="login-card__submit login-card__submit--reset" type="button"
+                                onclick="location.href='{% url 'reset_password' %}'">Забыли пароль?</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="login-card__logo">
+                    <img src="../../static/img/login_page/Company_logo.svg" alt="Логотип компании">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        const icon = document.querySelector(".custom-input__icon img");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.src = "../../static/img/login_page/eye-on.png";
+        } else {
+            passwordField.type = "password";
+            icon.src = "../../static/img/login_page/eye.png";
+        }
+    }
+</script>
+
+</html>

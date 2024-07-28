@@ -1,0 +1,14 @@
+.function-list {
+    display: flex;
+    margin: 64px 0 0 0;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.function-list__item {
+    width: calc(100% / 4 -  60px / 4);
+    display: flex;
+    flex-direction: column;
+}

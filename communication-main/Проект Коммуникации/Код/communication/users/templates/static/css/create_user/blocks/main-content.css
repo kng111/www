@@ -1,0 +1,15 @@
+.main-content__title {
+    font-size: 64px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.main-content__form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 75%;
+    border: 1px solid #9c9c9c;
+    border-radius: 10px;
+    padding: 15px;
+}

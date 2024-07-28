@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="../../static/css/create_user/style.css">
+
+<head>
+    <title>Изменение сотрудника</title>
+</head>
+<h2 class="main-content__title">Изменение сотрудника</h2>
+{% if success_message %}
+<p>{{ success_message }}</p>
+{% endif %}
+
+<form class="main-content__form" method="post">
+    {% csrf_token %}
+    <div class="form__section">
+        <label class="section__title" for="user">Выберите пользователя:</label>
+        <select name="user" id="user">
+            <option value="" selected disabled>Выберите пользователя</option>
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.get_full_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form__section">
+        <label class="section__title" for="role">Выберите роль:</label>
+        <select name="role" id="role">
+            <option value="" selected disabled>Выберите роль</option>
+            {% for role in roles %}
+            <option value="{{ role.id }}">{{ role.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form__section">
+        <label class="section__title" for="groups">Выберите группы:</label>
+        <div id="id_groups">
+            {% for group in groups %}
+            <div>
+                <input type="checkbox" id="group{{ group.id }}" name="groups" value="{{ group.id }}">
+                <label for="group{{ group.id }}">{{ group.name }}</label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <button class="form__button" type="submit">Сохранить</button>
+</form>
+
+<script>
+    document.getElementById('user').addEventListener('change', function() {
+        var userId = this.value;
+        if (userId) {
+            fetch(`/change-user/${userId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('role').value = data.role || '';
+
+                    var checkboxes = document.querySelectorAll('#id_groups input[type="checkbox"]');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = data.groups.includes(parseInt(checkbox.value));
+                    });
+                });
+        }
+    });
+</script>
+{% endblock %}

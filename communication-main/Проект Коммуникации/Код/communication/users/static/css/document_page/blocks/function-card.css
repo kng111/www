@@ -1,0 +1,39 @@
+.function-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #9c9c9c;
+    border-radius: 10px;
+    padding: 24px 35px 32px;
+    min-height: 370px; 
+    flex-grow: 1;
+}
+
+.function-card__title {
+    font-weight: 700;
+    font-size: 36px;
+    text-align: center;
+}
+
+.function-card__image {
+    margin: 0 auto;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+
+.function-card__image--reports {
+    transform: rotate(-3deg);
+    margin-top: 1px;
+    margin-bottom: 9px;
+}
+
+.function-card__link {
+    display: block;
+    padding: 16px 61px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    color: #fff;
+    background: #26252a;
+    border-radius: 5px;
+}
+

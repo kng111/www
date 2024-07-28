@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="../../static/css/profile/profile.css">
+
+<head>
+    <title>Профиль</title>
+</head>
+
+<body>
+    <a href="{% url 'home' %}" class="main-content__link">На главную</a>
+    <h1 class="main-content__title">Профиль</h1>
+    <div class="main-content__info">
+        <p>Имя: {{ request.user.first_name }}</p>
+        <p>Фамилия: {{ request.user.last_name }}</p>
+        <p>Почта: {{ request.user.email }}</p>
+        <p>Дата рождения: {{ request.user.birth_date }}</p>
+        <p>Пол: {{ request.user.gender }}</p>
+        <p>Номер телефона: {{ request.user.phone_number }}</p>
+        <p>Роль:
+            {% if request.user.role %}
+            {{ request.user.role.name }}
+            {% else %}
+            Нет роли
+            {% endif %}
+        </p>
+        <p>Группы:
+            {% if request.user.groups.all %}
+            {% for group in request.user.groups.all %}
+            {{ group.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+            {% else %}
+            Нет групп
+            {% endif %}
+        </p>
+    </div>
+    <a href="{% url 'change_password' %}" class="info__link">Смена пароля</a>
+</body>
+{% endblock %}

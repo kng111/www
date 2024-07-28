@@ -1,0 +1,9 @@
+/* Global */
+/* ------------------------------------ */
+@import "global/visually-hidden.css";
+
+/* Blocks */
+/* ------------------------------------ */
+@import "blocks/function-list.css";
+@import "blocks/function-card.css";
+@import "blocks/main-content.css";

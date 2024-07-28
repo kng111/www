@@ -1,0 +1,13 @@
+.function-list {
+    display: flex;
+    margin: 0 auto; 
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.function-list__item {
+    flex-grow: 1;
+    width: calc(50% - 20px);
+}

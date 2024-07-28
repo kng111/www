@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="../../static/css/show_table/style.css">
+
+<div class="main-content__top">
+    <title>Админ-просмотр</title>
+</div>
+<h1 class="main-content__title">Пользователи</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Имя и Фамилия</th>
+            <th>Почта</th>
+            <th>Роль</th>
+            <th>Группы</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.get_full_name }}</td>
+            <td>{{ user.username }}</td>
+            <td>
+                {% if user.role %}
+                {{ user.role.name }}
+                {% else %}
+                Нет роли
+                {% endif %}
+            </td>
+            <td>
+                {% if user.groups.all %}
+                {% for group in user.groups.all %}
+                {{ group.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                {% else %}
+                Нет групп
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="../../static/css/create_user/style.css">
+
+<head>
+    <title>Создание сотрудника</title>
+</head>
+<h2 class="main-content__title">Создание сотрудника</h2>
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %}
+
+<form class="main-content__form" method="post">
+    {% csrf_token %}
+    <div class="form__content">
+        <div class="form__content-left">
+            <div class="form__section">
+                <label class="section__title" for="{{ form.first_name.id_for_label }}">Имя:</label>
+                {{ form.first_name }}
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="{{ form.last_name.id_for_label }}">Фамилия:</label>
+                {{ form.last_name }}
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="{{ form.gender.id_for_label }}">Пол:</label>
+                {{ form.gender }}
+            </div>
+            <div class="form__section">
+                <label class="section__title">Дата рождения:</label>
+                <input type="date" id="{{ form.birth_date.id_for_label }}" name="{{ form.birth_date.html_name }}">
+            </div>
+        </div>
+        <div class="form__divider"></div>
+        <div class="form__content-right">
+            <div class="form__section">
+                <label class="section__title" for="{{ form.email.id_for_label }}">Почта:</label>
+                {{ form.email }}
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="{{ form.phone_number.id_for_label }}">Номер телефона:</label>
+                {{ form.phone_number }}
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="{{ form.password1.id_for_label }}">Пароль:</label>
+                {{ form.password1 }}
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="{{ form.password2.id_for_label }}">Подтверждение пароля:</label>
+                {{ form.password2 }}
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="{{ form.role.id_for_label }}">Роль:</label>
+                {{ form.role }}
+            </div>
+            <div class="form__section">
+                <label class="section__title" for="{{ form.groups.id_for_label }}">Группа:</label>
+                {{ form.groups }}
+            </div>
+        </div>
+    </div>
+    <button class="form__button" type="submit">Создать</button>
+</form>
+{% endblock %}

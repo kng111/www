@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'header/css/styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/logo.ico' %}" sizes="16x16">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tenor+Sans&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <a class="header__logo" href="{% url 'home' %}">
+                    <img src="{% static 'header/img/Company_logo.svg' %}" alt="Логотип компании">
+                </a>
+                <div class="header__center-button-wrapper">
+                    {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                    <a class="header__employees" id="employeesButton" href="/show-table">
+                        Сотрудники
+                    </a>
+                    <div class="header__employees-button-wrapper hidden" id="buttonWrapper">
+                        <a href="/create-user" class="header__add-employees">+</a>
+                        <a href="/change-user" class="header__change-employees">&#x270E;</a>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+
+                </div>
+                <div class="header__button-wrapper">
+                    <a class="header__back" id="backButton" href="javascript:history.go(-1)">
+                        НАЗАД
+                        <img src="{% static 'header/img/Back_sing.svg' %}" alt="знак назад">
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a class="header__profile" href="/profile">
+                        ПРОФИЛЬ
+                        <img src="{% static 'header/img/Profile_sign.svg' %}" alt="знак назад">
+                    </a>
+                    <a class="header__exit" href="/logout">
+                        ВЫЙТИ
+                        <img src="{% static 'header/img/Exit_sign.svg' %}" alt="знак назад">
+                    </a>
+                    {% else %}
+                    <a class="header__exit" href="/login">
+                        ВХОД
+                        <img src="{% static 'header/img/Exit_sign.svg' %}" alt="знак назад">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <div class="date-time">
+        <div class="container">
+            <div class="date-time-wrapper">
+                <span class="date-time__time"></span>
+                <span class="date-time__date"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // СКРИПТ КОТОРЫЙ ВЫВОДИТ ВРЕМЯ СНИЗУ СПРАВА
+        function updateClock() {
+            const now = new Date();
+            let time = now.toLocaleTimeString();
+            let date = now.toLocaleDateString();
+
+            document.querySelector(".date-time__time").textContent = time;
+            document.querySelector(".date-time__date").textContent = date;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // скрывает кнопку "НАЗАД" на главной странице 
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.location.pathname === '/') {
+                document.getElementById('backButton').classList.add('hidden');
+            }
+        });
+
+        // скрывать кнопку "СОТРУДНИКИ" и отображать кнопки создание/изменение сотрудника
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.location.pathname === '/show-table/') {
+                document.getElementById('employeesButton').classList.add('hidden');
+                document.getElementById('buttonWrapper').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
